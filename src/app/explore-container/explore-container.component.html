@@ -1,4 +1,13 @@
 <div id="container">
-  <strong>{{ name }}</strong>
-  <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+
+    <!-- Google map element -->
+    <google-map height="400px"
+    width="750px"
+    [center]="center"
+    [zoom]="zoom">
+
+    <!-- Map directions renderer -->
+<map-directions-renderer *ngIf="(directionsResults$ | async) as directionsResults"
+                   [directions]="directionsResults"></map-directions-renderer>
+</google-map>
 </div>
