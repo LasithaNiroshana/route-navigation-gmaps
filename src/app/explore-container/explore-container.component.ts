@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import {MapDirectionsService} from '@angular/google-maps';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError,map} from 'rxjs/operators';
-import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-explore-container',
@@ -11,6 +10,11 @@ import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 })
 export class ExploreContainerComponent implements OnInit {
   @Input() name: string;
+  currentLat:any;
+  currentLong:any;
+  map:any;
+  marker:any;
+  isTracking = false;
   
   center: google.maps.LatLngLiteral = {lat: 7.8731, lng: 80.7718};
   zoom = 12;
@@ -25,11 +29,15 @@ export class ExploreContainerComponent implements OnInit {
       travelMode: google.maps.TravelMode.DRIVING
     };
     this.directionsResults$ = mapDirectionsService.route(request).pipe(map(response => response.result));
+    
   }
 
-  ngOnInit() {}
+  ngOnInit() { 
+    this.getDistance({lat: 6.9271, lng: 79.8612},{lat: 7.0840, lng: 80.0098});
+  }
 
   // showTrackingPosition(position) {
+  //   console.log("DIsplay Lang and Long");
   //   console.log(`tracking postion:  ${position.coords.latitude} - ${position.coords.longitude}`);
   //   this.currentLat = position.coords.latitude;
   //   this.currentLong = position.coords.longitude;
@@ -49,6 +57,8 @@ export class ExploreContainerComponent implements OnInit {
   //   }
   // }
 
+
+  //Show our position on map
   // showPosition(position) {
   //   this.currentLat = position.coords.latitude;
   //   this.currentLong = position.coords.longitude;
@@ -68,6 +78,7 @@ export class ExploreContainerComponent implements OnInit {
   //   }
   // }
 
+  // Find me on map
   // findMe() {
   //   if (navigator.geolocation) {
   //     navigator.geolocation.getCurrentPosition((position) => {
@@ -78,4 +89,47 @@ export class ExploreContainerComponent implements OnInit {
   //   }
   // }
 
+  // trackMe() {
+  //   if (navigator.geolocation) {
+  //     this.isTracking = true;
+  //     navigator.geolocation.watchPosition((position) => {
+  //       this.showTrackingPosition(position);
+  //     });
+  //   } else {
+  //     alert("Geolocation is not supported by this browser.");
+  //   }
+  // }
+
+  //Get distance matrix
+  getDistance(origin:any, destination:any) {
+    const matrix = new google.maps.DistanceMatrixService();
+    return new Promise((resolve, reject)=>{
+      matrix.getDistanceMatrix({
+      origins: [new google.maps.LatLng(origin.lat, origin.lng)],
+      destinations: [new google.maps.LatLng(destination.lat,destination.lng)],
+      travelMode: google.maps.TravelMode.DRIVING,
+      }, function(response, status) {
+        
+        for(let rows of response.rows){
+          console.log(rows.elements);
+          // console.log(typeof(rows.elements));
+        }
+        if(status === 'OK'){
+          resolve(response)
+        }else{
+          reject(response);
+        }
+      });
+    })
+  }
+
+
+  //getDirections
+
+  getDirections(origin:any, destination:any){
+    const route = new google.maps.DirectionsService();
+    return new Promise((resolve, reject)=>{
+      // route.route({origin:[new google.maps.LatLng(origin.lat, origin.lng)],})
+    })
+  }
 }

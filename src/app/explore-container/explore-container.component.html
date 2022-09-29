@@ -4,10 +4,43 @@
     <google-map height="400px"
     width="750px"
     [center]="center"
-    [zoom]="zoom">
+    [zoom]="12">
 
     <!-- Map directions renderer -->
 <map-directions-renderer *ngIf="(directionsResults$ | async) as directionsResults"
                    [directions]="directionsResults"></map-directions-renderer>
 </google-map>
+
+<!-- Geolocation demo -->
+<!-- <div class="container">
+    <div style="text-align:center">
+      <h1>
+        Google Map Geolocation Demo
+      </h1>
+    </div>
+    <div>
+      <div>
+        <button [disabled]="isTracking" class="btn btn-primary" (click)="findMe()">Find me</button>
+        <button class="btn btn-primary" (click)="trackMe()">Track me</button>
+      </div>
+      <div class="text-white">
+        <span>Latitude: {{currentLat}}</span>
+        <span>Longitude: {{currentLong}}</span>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="text-center">
+            <h3>
+              <div #gmap style="width:100%;height:300px"></div>
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <footer>
+    </footer>
+  </div> -->
+
 </div>
