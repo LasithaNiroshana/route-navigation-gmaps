@@ -1,32 +1,27 @@
 <div id="container">
-
-    <!-- Google map element -->
-    <google-map height="400px"
-    width="750px"
-    [center]="center"
-    [zoom]="12">
-
-    <!-- Map directions renderer -->
-<map-directions-renderer *ngIf="(directionsResults$ | async) as directionsResults"
-                   [directions]="directionsResults"></map-directions-renderer>
-</google-map>
-
-<!-- Geolocation demo -->
-<!-- <div class="container">
+  <div class="container">
     <div style="text-align:center">
       <h1>
         Google Map Geolocation Demo
       </h1>
+      <div class="map-component">
+        <google-map class="map-component" [center]="center" [zoom]="200">
+          <map-directions-renderer *ngIf="(directionsResults$ | async) as directionsResults"
+            [directions]="directionsResults">
+          </map-directions-renderer>
+        </google-map>
+      </div>
+      <!-- Google map element -->
     </div>
     <div>
       <div>
-        <button [disabled]="isTracking" class="btn btn-primary" (click)="findMe()">Find me</button>
-        <button class="btn btn-primary" (click)="trackMe()">Track me</button>
+        <!-- <button [disabled]="isTracking" class="btn btn-primary" (click)="findMe()">Find me</button> -->
+        <!-- <button class="btn btn-primary" (click)="trackMe()">Track me</button> -->
       </div>
-      <div class="text-white">
+      <!-- <div class="text-white">
         <span>Latitude: {{currentLat}}</span>
         <span>Longitude: {{currentLong}}</span>
-      </div>
+      </div> -->
       <br>
       <div class="row">
         <div class="col-md-12">
@@ -41,6 +36,6 @@
     <br>
     <footer>
     </footer>
-  </div> -->
+  </div>
 
 </div>
